@@ -1,16 +1,3 @@
-""" 
-COMP 593 - Final Project
-
-Description: 
-  Downloads NASA's Astronomy Picture of the Day (APOD) from a specified date
-  and sets it as the desktop background image.
-
-Usage:
-  python apod_desktop.py [apod_date]
-
-Parameters:
-  apod_date = APOD date (format: YYYY-MM-DD)
-"""
 from datetime import date
 import os
 import sys
@@ -30,19 +17,25 @@ image_cache_db = os.path.join(image_cache_dir, 'image_cache.db')
 def main():
     ## DO NOT CHANGE THIS FUNCTION ##
     # Get the APOD date from the command line
-    apod_date = get_apod_date()    
+    apod_date = get_apod_date()
+    print(f"APOD date: {apod_date}")  # Debugging statement
 
     # Initialize the image cache
+    print("Initializing APOD cache...")  # Debugging statement
     init_apod_cache()
 
     # Add the APOD for the specified date to the cache
+    print("Adding APOD to cache...")  # Debugging statement
     apod_id = add_apod_to_cache(apod_date)
 
     # Get the information for the APOD from the DB
+    print(f"Getting APOD info for ID: {apod_id}...")  # Debugging statement
     apod_info = get_apod_info(apod_id)
+    print(f"APOD Info: {apod_info}")  # Debugging statement
 
     # Set the APOD as the desktop background image
     if apod_id != 0:
+        print(f"Setting desktop background to {apod_info['file_path']}...")  # Debugging statement
         image_lib.set_desktop_background_image(apod_info['file_path'])
 
 def get_apod_date():
